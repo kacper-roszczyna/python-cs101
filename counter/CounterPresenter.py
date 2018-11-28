@@ -10,3 +10,6 @@ class CounterPresenter:
     def decrement(self):
         new_count = self.counter_model.decrement()
         self.view.show_count(new_count)
+
+    def load_data(self):
+        self.view.show_count(self.counter_model.get_count())

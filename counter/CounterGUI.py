@@ -1,4 +1,5 @@
 from counter.Counter import Counter
+from counter.CounterPersistance import CounterPersistanceImpl
 from counter.CounterPresenter import CounterPresenter
 from counter.CounterView import CounterView
 from tkinter import *
@@ -10,7 +11,7 @@ class CounterApplication(tk.Frame, CounterView):
         super().__init__(master)
         self.master = master
         self.pack()
-        self.presenter = CounterPresenter(Counter(0), self)
+        self.presenter = CounterPresenter(Counter(CounterPersistanceImpl()), self)
         self.create_widgets()
 
     def create_widgets(self):
@@ -24,6 +25,7 @@ class CounterApplication(tk.Frame, CounterView):
         self.count_display = tk.Label(self)
         self.count_display["text"] = "0"
         self.count_display.pack(side="top")
+        self.presenter.load_data()
 
     def create_button(self, label, action, button):
         button["text"] = label
